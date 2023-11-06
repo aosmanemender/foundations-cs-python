@@ -17,7 +17,7 @@ def addItem(basket):
       itemIndex = int(input("\nEnter the item index to add: "))
 
       if itemIndex == 0:
-        return
+        return 0
       if itemIndex not in range(1, len(items)+1):
         print("\n***** Please enter a valid index *****")
         print("0️⃣  to return to order menu")
@@ -99,7 +99,7 @@ def addCoupon(total, coupons):
       for coupon in coupons:
         discount += coupon[1]
         if couponCode == coupon[0]:
-          print(f"-> Your coupon code is already applied")
+          print("-> Your coupon code is already applied")
           return
 
       for code in systemCoupons:
