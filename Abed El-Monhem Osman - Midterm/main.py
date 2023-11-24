@@ -18,6 +18,41 @@ def displayMenu():
   print("8. Import Tabs")
   print("9. Exit")
 
+# function: validateAddedTab
+# params: 
+#   tab_title: title entered by the user
+#   tab_url: url address entered by the user
+# return: True/False
+# description: validating user inputs (tab title, tab url) before adding it to the tabs dict
+def validateAddedTab(tab_title, tab_url):
+  valid = False
+
+  if not tab_title:
+    print("-> Tab title cannot be empty 🙂")
+  elif not tab_url:
+    print("-> Tab url cannot be empty 🙂")
+  else:
+    valid = True
+
+  return valid
+
+# function: openTab
+# params: 
+#   tabs: dictionary of tabs to be updated
+# return: updated tabs dict
+# description: adding a new tab to the tabs dict
+def openTab(tabs):
+  print("\n***** Opening a new tab *****")
+  
+  while True:
+    tab_title = input("\nEnter the tab title: ")
+    tab_url = input("Enter the tab URL: ")
+
+    if validateAddedTab(tab_title, tab_url):
+      tabs[tab_title] = tab_url
+      print("\n-> Tab added successfully 👍")
+      return tabs
+
 def initializeTabsDictionary():
   tabs = {}
   tabs["Tab 1"] = "https://www.google.com"
