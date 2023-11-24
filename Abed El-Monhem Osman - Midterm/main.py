@@ -1,3 +1,23 @@
+# function: greetingUser
+# description: displaying user greeting
+def greetingUser():
+  print("\n***** Hello, And Welcome *****\n")
+
+# function: displayMenu
+# description: displaying the main menu with a variety of options
+def displayMenu():
+  print("\n***** Main Menu *****\n")
+  print("Please select an option")
+  print("1. Open Tab")
+  print("2. Close Tab")
+  print("3. Switch Tab")
+  print("4. Display All Tabs")
+  print("5. Open Nested Tab")
+  print("6. Sort All Tabs")
+  print("7. Save Tabs")
+  print("8. Import Tabs")
+  print("9. Exit")
+
 def initializeTabsDictionary():
   tabs = {}
   tabs["Tab 1"] = "https://www.google.com"
