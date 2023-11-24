@@ -1,3 +1,12 @@
+def initializeTabsDictionary():
+  tabs = {}
+  tabs["Tab 1"] = "https://www.google.com"
+  tabs["Tab 2"] = "https://www.youtube.com"
+  tabs["Tab 3"] = "https://www.facebook.com"
+  tabs["Tab 4"] = "https://www.twitter.com"
+  tabs["Tab 5"] = "https://www.instagram.com"
+  return tabs
+
 def menu():
   tabs = initializeTabsDictionary()
   greetingUser()
