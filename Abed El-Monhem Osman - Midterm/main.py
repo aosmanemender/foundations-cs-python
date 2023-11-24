@@ -53,6 +53,29 @@ def openTab(tabs):
       print("\n-> Tab added successfully 👍")
       return tabs
 
+def swicthTab():
+  print("bye 👋 bye 👋")
+
+# function: displayTabs
+# params: 
+#   tabs: dictionary of tabs to be displayed
+# description: printing all tabs opened
+def displayTabs(tabs):
+  print("\n***** Displaying all tabs *****\n")
+  for tab_title, tab_url in tabs.items():
+    print(f"{tab_title} : {tab_url}")
+    
+def openNestedTab():
+  print("bye 👋 bye 👋")
+def sortTabs():
+  print("bye 👋 bye 👋")
+def saveTabs():
+  print("bye 👋 bye 👋")
+def importTabs():
+  print("bye 👋 bye 👋")
+def exit():
+  print("bye 👋 bye 👋")
+
 def initializeTabsDictionary():
   tabs = {}
   tabs["Tab 1"] = "https://www.google.com"
