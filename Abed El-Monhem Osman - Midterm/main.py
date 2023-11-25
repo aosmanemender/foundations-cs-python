@@ -1,5 +1,8 @@
 # function: greetingUser
 # description: displaying user greeting
+import requests
+from bs4 import BeautifulSoup
+
 def greetingUser():
   print("\n***** Hello, And Welcome *****\n")
 
@@ -101,8 +104,40 @@ def closeTab(tabs):
       print("\n-> Something went wrong, please try again 🙂")
       print("Exception:", e, "\n")
 
-def swicthTab():
-  print("bye 👋 bye 👋")
+# function: swicthTab
+# params:
+#   tabs: dictionary of tabs to be searched into
+# description: printing HTML content of the switched tab
+# online reference: https://realpython.com/beautiful-soup-web-scraper-python/
+def swicthTab(tabs):
+  print("\n***** Switching to a tab *****")
+
+  if not tabs:
+    print("\n-> There are no tabs to switch to 🙂")
+    return
+
+  while True:
+    try:
+      print("\nEnter the index of the tab you wish to switch to ")
+      for i, elt in enumerate(tabs, 1):
+        print(f"{i}. {elt} -> {tabs.get(elt)}")
+
+      tab_index = input("-> ")
+      tab_index = len(tabs) if not tab_index and tab_index != 0 else int(tab_index)
+
+      if tab_index in range(1, len(tabs) + 1):
+        URL = tabs.get(list(tabs.keys())[tab_index - 1])
+        print(f"\n-> Switching to tab: {URL}\n")
+        page = requests.get(URL)
+
+        soup = BeautifulSoup(page.content, "html.parser")
+        print(soup)
+        break
+      else:
+        print(f"\n-> Invalid index ({tab_index}) 🙂")
+    except Exception as e:
+      print("\n-> Something went wrong, please try again 🙂")
+      print("Exception:", e, "\n")
 
 # function: displayTabs
 # params: 
