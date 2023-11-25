@@ -40,21 +40,25 @@ def validateAddedTab(tab_title, tab_url):
   return valid
 
 # function: openTab
-# params: 
+# params:
 #   tabs: dictionary of tabs to be updated
-# return: updated tabs dict
 # description: adding a new tab to the tabs dict
 def openTab(tabs):
   print("\n***** Opening a new tab *****")
-  
+
   while True:
     tab_title = input("\nEnter the tab title: ")
     tab_url = input("Enter the tab URL: ")
 
     if validateAddedTab(tab_title, tab_url):
-      tabs[tab_title] = tab_url
+      tab_url_dict = {
+        'URL' : tab_url,
+        'Nested Tabs' : {}
+      }
+      tabs[tab_title] = tab_url_dict
       print("\n-> Tab added successfully 👍")
-      return tabs
+      displayTabs(tabs)
+      break
 
 # function: closeTab
 # params:
