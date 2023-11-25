@@ -65,6 +65,16 @@ def displayTabsIndexed(tabs):
   for i, key in enumerate(tabs, 1):
     print(f"{i}. {key} -> {tabs.get(key).get('URL')}")
 
+# function: displayParentTabsIndexed
+# params:
+#   tabs: dictionary of tabs to be printed
+# description: displaying only parent tabs with index number to be picked by the user
+def displayParentTabsIndexed(tabs):
+  for i, key in enumerate(tabs, 1):
+    nested_tabs = tabs.get(key).get('Nested Tabs')
+    if nested_tabs:
+      print(f"{i}. {key} -> {tabs.get(key).get('URL')}")
+
 # function: closeTab
 # params:
 #   tabs: dictionary of tabs to be updated
