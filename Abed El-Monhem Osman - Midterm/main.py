@@ -53,6 +53,54 @@ def openTab(tabs):
       print("\n-> Tab added successfully 👍")
       return tabs
 
+# function: closeTab
+# params:
+#   tabs: dictionary of tabs to be updated
+# description: removing a tab from the tabs dict
+def closeTab(tabs):
+  print("\n***** Closing a tab *****")
+
+  if not tabs:
+    print("\n-> There are no tabs to close 🙂")
+    return
+
+  while True:
+    try:
+      print("\nEnter the index of the tab you wish to close ")
+      for i, elt in enumerate(tabs, 1):
+        print(f"{i}. {elt} -> {tabs.get(elt).get('URL')}")
+        for nested_tab_title, nested_tab_url in tabs.get(elt).get('Nested Tabs').items():
+          print("\t", nested_tab_title, "->", nested_tab_url)
+
+      tab_index = input("-> ")
+      tab_index = len(tabs) if not tab_index and tab_index != 0 else int(
+          tab_index)
+
+      if tab_index in range(1, len(tabs) + 1):
+        print("\nWould you like to close all nested tabs as well? if so enter 'yes' 🙂")
+        closing_nested_tab = input("-> ")
+
+        key = list(tabs.keys())[tab_index - 1]
+        if closing_nested_tab.lower() != 'yes':
+          for nested_tab_title, nested_tab_url in tabs.get(key).get('Nested Tabs').items():
+            tab_url_dict = {
+              'URL' : nested_tab_url,
+              'Nested Tabs' : {}
+            }
+            tabs[nested_tab_title] = tab_url_dict
+      else:
+        print(f"\n-> Invalid index ({tab_index}) 🙂")
+        continue
+
+      tabs.pop(key)
+      print("\n-> Tab removed successfully 👍")
+      if tabs:
+        displayTabs(tabs)
+      break
+    except Exception as e:
+      print("\n-> Something went wrong, please try again 🙂")
+      print("Exception:", e, "\n")
+
 def swicthTab():
   print("bye 👋 bye 👋")
 
