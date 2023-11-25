@@ -133,14 +133,15 @@ def swicthTab(tabs):
 
   while True:
     try:
-      print("\nEnter the index of the tab you wish to switch to: \n")
-      displayTabsIndexed(tabs)
+      print("\nEnter the index of the tab you wish to switch to ")
+      for i, elt in enumerate(tabs, 1):
+        print(f"{i}. {elt} -> {tabs.get(elt)}")
 
       tab_index = input("-> ")
       tab_index = len(tabs) if not tab_index and tab_index != 0 else int(tab_index)
 
       if tab_index in range(1, len(tabs) + 1):
-        URL = tabs.get(list(tabs.keys())[tab_index - 1]).get('URL')
+        URL = tabs.get(list(tabs.keys())[tab_index - 1])
         print(f"\n-> Switching to tab: {URL}\n")
         page = requests.get(URL)
 
