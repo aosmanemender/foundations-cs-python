@@ -154,13 +154,23 @@ def swicthTab(tabs):
       print("Exception:", e, "\n")
 
 # function: displayTabs
-# params: 
+# params:
 #   tabs: dictionary of tabs to be displayed
 # description: printing all tabs opened
 def displayTabs(tabs):
   print("\n***** Displaying all tabs *****\n")
-  for tab_title, tab_url in tabs.items():
-    print(f"{tab_title} : {tab_url}")
+
+  if not tabs:
+    print("-> There are no tabs to display 🙂")
+    return
+
+  for key in tabs:
+    nested_tabs = tabs.get(key).get('Nested Tabs')
+    if nested_tabs is not None:
+      print(f"{key} -> {tabs.get(key).get('URL')}")
+      for nt in nested_tabs:
+        print("\t", list(tabs.keys())[nt], "->", tabs.get(list(tabs.keys())[nt]).get('URL'))
+
     
 def openNestedTab():
   print("bye 👋 bye 👋")
