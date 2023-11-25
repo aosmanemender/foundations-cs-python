@@ -171,9 +171,48 @@ def displayTabs(tabs):
       for nt in nested_tabs:
         print("\t", list(tabs.keys())[nt], "->", tabs.get(list(tabs.keys())[nt]).get('URL'))
 
-    
-def openNestedTab():
-  print("bye 👋 bye 👋")
+# function: openNestedTab
+# params:
+#   tabs: dictionary of tabs to be updated
+# description: adding a new nested tab to tabs dictionary
+def openNestedTab(tabs):
+  print("\n***** Opening nested tab *****")
+
+  if not tabs:
+    print("\n-> There are no tabs to create nested tabs from 🙂")
+    return
+
+  while True:
+    try:
+      print("\nEnter the index of the parent tab where you want to insert additional tabs: \n")
+      displayParentTabsIndexed(tabs)
+
+      parent_tab_index = int(input("-> "))
+
+      if parent_tab_index in range(1, len(tabs) + 1):
+        nested_tabs = tabs.get(list(tabs.keys())[parent_tab_index - 1]).get('Nested Tabs')
+        if nested_tabs:
+          nested_tab_title = input("\nEnter the nested tab title: ")
+          nested_tab_url = input("Enter the nested tab URL: ")
+
+          if validateAddedTab(nested_tab_title, nested_tab_url):
+            # adding new nested tab to tabs dict and its index to parent tab
+            tabs[nested_tab_title] = {'URL': nested_tab_url}
+            nested_tabs.append(len(tabs) - 1)
+            print("\n-> Nested-Tab added successfully 👍\n")
+            print(tabs.get(list(tabs.keys())[parent_tab_index - 1]))
+            break
+        else:
+          print("\n-> You can not add a nested tab to a child tab 🙂")
+
+        
+      else:
+        print(f"\n-> Invalid index ({parent_tab_index}) 🙂")
+    except Exception as e:
+      print("\n-> Something went wrong, please try again 🙂")
+      print("Exception:", e, "\n")    
+
+
 def sortTabs():
   print("bye 👋 bye 👋")
 def saveTabs():
