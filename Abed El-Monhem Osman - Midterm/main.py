@@ -225,70 +225,111 @@ def exit():
 # only for testing purpose
 def initializeTabsDictionary():
   tabs = {}
-  tabs["Tab 1"] = "https://www.google.com"
-  tabs["Tab 2"] = "https://www.youtube.com"
-  tabs["Tab 3"] = "https://www.facebook.com"
-  tabs["Tab 4"] = "https://www.twitter.com"
-  tabs["Tab 5"] = "https://www.instagram.com"
   tabs = {
-    'Tab 1': 'https://www.google.com',
-    'Tab 2': 'https://www.youtube.com',
-    'Tab 3': 'https://www.facebook.com',
-    'Tab 4': 'https://www.twitter.com',
-    'Tab 5': 'https://www.instagram.com'
+      'Tab 1': 'https://www.google.com',
+      'Tab 2': 'https://www.youtube.com',
+      'Tab 3': 'https://www.facebook.com',
+      'Tab 4': 'https://www.twitter.com',
+      'Tab 5': 'https://www.instagram.com'
   }
   tabs = {
-    'Tab 1': { 
-        'URL': 'https://www.google.com',
-        'Nested Tabs': { 
-          'Nested tab 1.1': 'https://www.google.com/search?q=python',
-          'Nested tab 1.2': 'https://www.google.com/search?q=java',
-          'Nested tab 1.3': 'https://www.google.com/search?q=c++',
-          'Nested tab 1.4': 'https://www.google.com/search?q=javascript',
-          'Nested tab 1.5': 'https://www.google.com/search?q=php',
-        }
-     },
-    'Tab 2': {
-      'URL': 'https://www.youtube.com',
-      'Nested Tabs': {
-        'Nested tab 2.1': 'https://www.youtube.com/results?search_query=python',
-        'Nested tab 2.2': 'https://www.youtube.com/results?search_query=java',
-        'Nested tab 2.3': 'https://www.youtube.com/results?search_query=c++',
-        'Nested tab 2.4': 'https://www.youtube.com/results?search_query=javascript',
-        'Nested tab 2.5': 'https://www.youtube.com/results?search_query=php',
-      }
-    },
-    'Tab 3': {
-      'URL': 'https://www.facebook.com',
-      'Nested Tabs': {
-        'Nested tab 3.1': 'https://www.facebook.com/search?q=python',
-        'Nested tab 3.2': 'https://www.facebook.com/search?q=java',
-        'Nested tab 3.3': 'https://www.facebook.com/search?q=c++',
-        'Nested tab 3.4': 'https://www.facebook.com/search?q=javascript',
-        'Nested tab 3.5': 'https://www.facebook.com/search?q=php',
-      }
-    },
-    'Tab 4': {
-      'URL': 'https://www.twitter.com',
-      'Nested Tabs': {
-        'Nested tab 4.1': 'https://www.twitter.com/search?q=python',
-        'Nested tab 4.2': 'https://www.twitter.com/search?q=java',
-        'Nested tab 4.3': 'https://www.twitter.com/search?q=c++',
-        'Nested tab 4.4': 'https://www.twitter.com/search?q=javascript',
-        'Nested tab 4.5': 'https://www.twitter.com/search?q=php',
-      }
-    },
-    'Tab 5': {
-      'URL': 'https://www.instagram.com',
-      'Nested Tabs': {
-        'Nested tab 5.1': 'https://www.instagram.com/search?q=python',
-        'Nested tab 5.2': 'https://www.instagram.com/search?q=java',
-        'Nested tab 5.3': 'https://www.instagram.com/search?q=c++',
-        'Nested tab 5.4': 'https://www.instagram.com/search?q=javascript',
-        'Nested tab 5.5': 'https://www.instagram.com/search?q=php',
-      }
-    }
+      'Tab 1': {
+          'URL': 'https://www.google.com',
+          'Nested Tabs': [5, 6, 7, 8, 9]
+      },
+      'Tab 2': {
+          'URL': 'https://www.youtube.com',
+          'Nested Tabs': [10, 11, 12, 13, 14]
+      },
+      'Tab 3': {
+          'URL': 'https://www.facebook.com',
+          'Nested Tabs': [15, 16, 17, 18, 19]
+      },
+      'Tab 4': {
+          'URL': 'https://www.twitter.com',
+          'Nested Tabs': [20, 21, 22, 23, 24]
+      },
+      'Tab 5': {
+          'URL': 'https://www.instagram.com',
+          'Nested Tabs': [25, 26, 27, 28, 29]
+      },
+      'Nested tab 1.1': {
+          'URL': 'https://www.google.com/search?q=python'
+      },
+      'Nested tab 1.2': {
+          'URL': 'https://www.google.com/search?q=java'
+      },
+      'Nested tab 1.3': {
+          'URL': 'https://www.google.com/search?q=c++'
+      },
+      'Nested tab 1.4': {
+          'URL': 'https://www.google.com/search?q=javascript'
+      },
+      'Nested tab 1.5': {
+          'URL': 'https://www.google.com/search?q=php'
+      },
+      'Nested tab 2.1': {
+          'URL': 'https://www.youtube.com/results?search_query=python'
+      },
+      'Nested tab 2.2': {
+          'URL': 'https://www.youtube.com/results?search_query=java'
+      },
+      'Nested tab 2.3': {
+          'URL': 'https://www.youtube.com/results?search_query=c++'
+      },
+      'Nested tab 2.4': {
+          'URL': 'https://www.youtube.com/results?search_query=javascript'
+      },
+      'Nested tab 2.5': {
+          'URL': 'https://www.youtube.com/results?search_query=php'
+      },
+      'Nested tab 3.1': {
+          'URL': 'https://www.facebook.com/search?q=python'
+      },
+      'Nested tab 3.2': {
+          'URL': 'https://www.facebook.com/search?q=java'
+      },
+      'Nested tab 3.3': {
+          'URL': 'https://www.facebook.com/search?q=c++'
+      },
+      'Nested tab 3.4': {
+          'URL': 'https://www.facebook.com/search?q=javascript'
+      },
+      'Nested tab 3.5': {
+          'URL': 'https://www.facebook.com/search?q=php'
+      },
+      'Nested tab 4.1': {
+          'URL': 'https://www.twitter.com/search?q=python'
+      },
+      'Nested tab 4.2': {
+          'URL': 'https://www.twitter.com/search?q=java'
+      },
+      'Nested tab 4.3': {
+          'URL': 'https://www.twitter.com/search?q=c++'
+      },
+      'Nested tab 4.4': {
+          'URL': 'https://www.twitter.com/search?q=javascript'
+      },
+      'Nested tab 4.5': {
+          'URL': 'https://www.twitter.com/search?q=php'
+      },
+      'Nested tab 5.1': {
+          'URL': 'https://www.instagram.com/search?q=python'
+      },
+      'Nested tab 5.2': {
+          'URL': 'https://www.instagram.com/search?q=java'
+      },
+      'Nested tab 5.3': {
+          'URL': 'https://www.instagram.com/search?q=c++'
+      },
+      'Nested tab 5.4': {
+          'URL': 'https://www.instagram.com/search?q=javascript'
+      },
+      'Nested tab 5.5': {
+          'URL': 'https://www.instagram.com/search?q=php'
+      },
   }
+  
   return tabs
 
 def menu():
