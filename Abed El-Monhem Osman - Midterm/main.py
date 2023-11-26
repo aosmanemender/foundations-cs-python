@@ -162,7 +162,10 @@ def swicthTab(tabs):
       displayTabsIndexed(tabs)
 
       tab_index = input("-> ")
-      tab_index = len(tabs) if not tab_index and tab_index != 0 else int(tab_index)
+      if not tab_index and tab_index != 0:
+        tab_index = findLastOpenedTab(tabs)
+      else:
+        tab_index = int(tab_index)
 
       if tab_index in range(1, len(tabs) + 1):
         URL = tabs.get(list(tabs.keys())[tab_index - 1]).get('URL')
@@ -222,10 +225,12 @@ def openNestedTab(tabs):
 
           if validateAddedTab(nested_tab_title, nested_tab_url):
             # adding new nested tab to tabs dict and its index to parent tab
-            tabs[nested_tab_title] = {'URL': nested_tab_url}
+            tabs[nested_tab_title] = {
+              'Tab Index' : len(tabs),
+              'URL': nested_tab_url
+            }
             nested_tabs.append(len(tabs) - 1)
             print("\n-> Nested-Tab added successfully 👍\n")
-            print(tabs.get(list(tabs.keys())[parent_tab_index - 1]))
             break
         else:
           print("\n-> You can not add a nested tab to a child tab 🙂")
