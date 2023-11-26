@@ -325,103 +325,133 @@ def initializeTabsDictionary():
       'Tab 2': 'https://www.youtube.com',
       'Tab 3': 'https://www.facebook.com',
       'Tab 4': 'https://www.twitter.com',
-      'Tab 5': 'https://www.instagram.com'
+      'Tab 5': 'https://www.linkedin.com'
   }
   tabs = {
       'Tab 1': {
+          'Tab Index' : 0,
           'URL': 'https://www.google.com',
           'Nested Tabs': [5, 6, 7, 8, 9]
       },
       'Tab 2': {
+          'Tab Index' : 1,
           'URL': 'https://www.youtube.com',
           'Nested Tabs': [10, 11, 12, 13, 14]
       },
       'Tab 3': {
+          'Tab Index' : 2,
           'URL': 'https://www.facebook.com',
           'Nested Tabs': [15, 16, 17, 18, 19]
       },
       'Tab 4': {
+          'Tab Index' : 3,
           'URL': 'https://www.twitter.com',
           'Nested Tabs': [20, 21, 22, 23, 24]
       },
       'Tab 5': {
-          'URL': 'https://www.instagram.com',
+          'Tab Index' : 4,
+          'URL': 'https://www.linkedin.com',
           'Nested Tabs': [25, 26, 27, 28, 29]
       },
       'Nested tab 1.1': {
+          'Tab Index' : 5,
           'URL': 'https://www.google.com/search?q=python'
       },
       'Nested tab 1.2': {
+          'Tab Index' : 6,
           'URL': 'https://www.google.com/search?q=java'
       },
       'Nested tab 1.3': {
+          'Tab Index' : 7,
           'URL': 'https://www.google.com/search?q=c++'
       },
       'Nested tab 1.4': {
+          'Tab Index' : 8,
           'URL': 'https://www.google.com/search?q=javascript'
       },
       'Nested tab 1.5': {
+          'Tab Index' : 9,
           'URL': 'https://www.google.com/search?q=php'
       },
       'Nested tab 2.1': {
+          'Tab Index' : 10,
           'URL': 'https://www.youtube.com/results?search_query=python'
       },
       'Nested tab 2.2': {
+          'Tab Index' : 11,
           'URL': 'https://www.youtube.com/results?search_query=java'
       },
       'Nested tab 2.3': {
+          'Tab Index' : 12,
           'URL': 'https://www.youtube.com/results?search_query=c++'
       },
       'Nested tab 2.4': {
+          'Tab Index' : 13,
           'URL': 'https://www.youtube.com/results?search_query=javascript'
       },
       'Nested tab 2.5': {
+          'Tab Index' : 14,
           'URL': 'https://www.youtube.com/results?search_query=php'
       },
       'Nested tab 3.1': {
+          'Tab Index' : 15,
           'URL': 'https://www.facebook.com/search?q=python'
       },
       'Nested tab 3.2': {
+          'Tab Index' : 16,
           'URL': 'https://www.facebook.com/search?q=java'
       },
       'Nested tab 3.3': {
+          'Tab Index' : 17,
           'URL': 'https://www.facebook.com/search?q=c++'
       },
       'Nested tab 3.4': {
+          'Tab Index' : 18,
           'URL': 'https://www.facebook.com/search?q=javascript'
       },
       'Nested tab 3.5': {
+          'Tab Index' : 19,
           'URL': 'https://www.facebook.com/search?q=php'
       },
       'Nested tab 4.1': {
+          'Tab Index' : 20,
           'URL': 'https://www.twitter.com/search?q=python'
       },
       'Nested tab 4.2': {
+          'Tab Index' : 21,
           'URL': 'https://www.twitter.com/search?q=java'
       },
       'Nested tab 4.3': {
+          'Tab Index' : 22,
           'URL': 'https://www.twitter.com/search?q=c++'
       },
       'Nested tab 4.4': {
+          'Tab Index' : 23,
           'URL': 'https://www.twitter.com/search?q=javascript'
       },
       'Nested tab 4.5': {
+          'Tab Index' : 24,
           'URL': 'https://www.twitter.com/search?q=php'
       },
       'Nested tab 5.1': {
-          'URL': 'https://www.instagram.com/search?q=python'
+          'Tab Index' : 25,
+          'URL': 'https://www.linkedin.com/search?q=python'
       },
       'Nested tab 5.2': {
-          'URL': 'https://www.instagram.com/search?q=java'
+          'Tab Index' : 26,
+          'URL': 'https://www.linkedin.com/search?q=java'
       },
       'Nested tab 5.3': {
-          'URL': 'https://www.instagram.com/search?q=c++'
+          'Tab Index' : 27,
+          'URL': 'https://www.linkedin.com/search?q=c++'
       },
       'Nested tab 5.4': {
-          'URL': 'https://www.instagram.com/search?q=javascript'
+          'Tab Index' : 28,
+          'URL': 'https://www.linkedin.com/search?q=javascript'
       },
       'Nested tab 5.5': {
-          'URL': 'https://www.instagram.com/search?q=php'
+          'Tab Index' : 29,
+          'URL': 'https://www.linkedin.com/search?q=php'
       },
   }
   
@@ -441,13 +471,13 @@ def menu():
       elif choice == 2:
         closeTab(tabs)
       elif choice == 3:
-        swicthTab()
+        swicthTab(tabs)
       elif choice == 4:
         displayTabs(tabs)
       elif choice == 5:
-        openNestedTab()
+        openNestedTab(tabs)
       elif choice == 6:
-        sortTabs()
+        tabs = sortTabs(tabs)
       elif choice == 7:
         saveTabs()
       elif choice == 8:
