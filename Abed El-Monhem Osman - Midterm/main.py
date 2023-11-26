@@ -8,6 +8,7 @@ import json
 def greetingUser():
   print("\n***** Hello, And Welcome *****\n")
 
+
 # function: displayMenu
 # description: displaying the main menu with a variety of options
 # time complexity: O(1)
@@ -24,6 +25,7 @@ def displayMenu():
   print("8. Import Tabs")
   print("9. Exit")
 
+
 # function: openTab
 # params:
 #   tabs: dictionary of tabs to be updated
@@ -38,7 +40,7 @@ def openTab(tabs):
 
     if validateAddedTab(tab_title, tab_url):
       tabs[tab_title] = {
-        'Tab Index' : len(tabs),
+        'Tab Index' : len(tabs) if tabs else 0,
         'URL': tab_url,
         'Nested Tabs': []
       }
@@ -46,8 +48,9 @@ def openTab(tabs):
       displayTabsIndexed(tabs)      #O(n), n being the length of the dict
       break
 
+
 # function: validateAddedTab
-# params: 
+# params:
 #   tab_title: title entered by the user
 #   tab_url: url address entered by the user
 # return: True/False
@@ -65,6 +68,7 @@ def validateAddedTab(tab_title, tab_url):
 
   return valid
 
+
 # function: displayTabsIndexed
 # params:
 #   tabs: dictionary of tabs to be printed
@@ -74,6 +78,7 @@ def displayTabsIndexed(tabs):
   for i, key in enumerate(tabs, 1):      #O(n)
     print(f"{i}. {key} -> {tabs.get(key).get('URL')}")
 
+
 # function: displayParentTabsIndexed
 # params:
 #   tabs: dictionary of tabs to be printed
@@ -82,13 +87,15 @@ def displayTabsIndexed(tabs):
 def displayParentTabsIndexed(tabs):
   for i, key in enumerate(tabs, 1):      #O(n)
     nested_tabs = tabs.get(key).get('Nested Tabs')
-    if nested_tabs:
+    if nested_tabs is not None:
       print(f"{i}. {key} -> {tabs.get(key).get('URL')}")
+
 
 # function: closeTab
 # params:
 #   tabs: dictionary of tabs to be updated
 # description: removing a tab from the tabs dict
+# time complexity: O(m*(n + n + n*(n*k)))) = O(m(2n + kn^2)))) = O(mkn^2), m being the number of times the user inputs invalid tab index, k being the number of nested tabs, n being the length of the dict
 def closeTab(tabs):
   print("\n***** Closing a tab *****")
 
@@ -96,40 +103,42 @@ def closeTab(tabs):
     print("\n-> There are no tabs to close 🙂")
     return
 
-  while True:
+  while True:      #O(m), m being the number of times the user inputs invalid index
     try:
       print("\nEnter the index of the tab you wish to close: \n")
-      displayTabsIndexed(tabs)
+      displayTabsIndexed(tabs)          #O(n), n being the length of the dict
 
       tab_index = input("-> ")
       if not tab_index and tab_index != 0:
-        tab_index = findLastOpenedTab(tabs)
+        tab_index = findLastOpenedTab(tabs)         #O(n), n being the length of the dict
       else:
         tab_index = int(tab_index)
 
-      if tab_index in range(1, len(tabs) + 1):
+      if tab_index in range(1, len(tabs) + 1):      #O(n), n being the length of the dict
         key = list(tabs.keys())[tab_index - 1]
         child = tabs.get(key).get('Nested Tabs') is None
-                
+
         # decrement tab indexes by 1
-        for tab in tabs:
+        for tab in tabs:                            #O(n), n being the length of the dict
           if tabs[tab]['Tab Index'] > tab_index - 1:
             tabs[tab]['Tab Index'] -= 1
           nested_tabs = tabs.get(tab).get('Nested Tabs')
           if nested_tabs:
             index = 0
             removed = False
-            while index < len(nested_tabs):
+            while index < len(nested_tabs):         #O(k), k being the length of nested tabs
+              # decrement nested tab indexes by 1
+              if nested_tabs[index] > tab_index - 1:
+                nested_tabs[index] -= 1
+                
               # remove child index from the parent
               if not removed and child and nested_tabs[index] == tab_index - 1:
                 nested_tabs.remove(tab_index - 1)
                 removed = True
                 index -= 1
-              # decrement nested tab indexes by 1
-              if nested_tabs[index] > tab_index - 1:
-                nested_tabs[index] -= 1
+              
               index += 1
-        
+
         # remove child tab
         tabs.pop(key)
         print(f"\n-> Tab {key} closed successfully 👍")
@@ -140,21 +149,25 @@ def closeTab(tabs):
       print("\n-> Something went wrong, please try again 🙂")
       print("Exception:", e, "\n")
 
+
 # function: findLastOpenedTab
 # params:
 #   tabs: dictionary of tabs to search into
 # description: find the greater index saved in the dictionary
+# time complexity: O(n), n being the length of the dict
 def findLastOpenedTab(tabs):
   last_opened_tab = 0
-  for key in tabs:
+  for key in tabs:          #O(n), n being the length of the dict
     if tabs.get(key).get("Tab Index") > last_opened_tab:
       last_opened_tab = tabs.get(key).get("Tab Index")
   return last_opened_tab + 1
+
 
 # function: swicthTab
 # params:
 #   tabs: dictionary of tabs to be searched into
 # description: printing HTML content of the switched tab
+# time complexity: O(m(n + n + n)) = O(m*n), n being the length of the dict, m being the number of times the user inputs invalid index
 # online reference: https://realpython.com/beautiful-soup-web-scraper-python/
 def swicthTab(tabs):
   print("\n***** Switching to a tab *****")
@@ -163,18 +176,18 @@ def swicthTab(tabs):
     print("\n-> There are no tabs to switch to 🙂")
     return
 
-  while True:
+  while True:      #O(m), m being the number of times the user inputs invalid index
     try:
       print("\nEnter the index of the tab you wish to switch to: \n")
-      displayTabsIndexed(tabs)
+      displayTabsIndexed(tabs)          #O(n), n being the length of the dict
 
       tab_index = input("-> ")
       if not tab_index and tab_index != 0:
-        tab_index = findLastOpenedTab(tabs)
+        tab_index = findLastOpenedTab(tabs)         #O(n), n being the length of the dict
       else:
         tab_index = int(tab_index)
 
-      if tab_index in range(1, len(tabs) + 1):
+      if tab_index in range(1, len(tabs) + 1):         #O(n), n being the length of the dict
         URL = tabs.get(list(tabs.keys())[tab_index - 1]).get('URL')
         print(f"\n-> Switching to tab: {URL}\n")
         page = requests.get(URL)
@@ -188,10 +201,12 @@ def swicthTab(tabs):
       print("\n-> Something went wrong, please try again 🙂")
       print("Exception:", e, "\n")
 
+
 # function: displayTabs
 # params:
 #   tabs: dictionary of tabs to be displayed
 # description: printing all tabs opened
+# time complexity: O(n*m + n*n*m) = O(mn^2), n being the length of the dict, m being the length of nested tabs
 def displayTabs(tabs):
   print("\n***** Displaying all tabs *****\n")
 
@@ -199,12 +214,23 @@ def displayTabs(tabs):
     print("-> There are no tabs to display 🙂")
     return
 
-  for key in tabs:
+  for key in tabs:      #O(n), n being the length of the dict
     nested_tabs = tabs.get(key).get('Nested Tabs')
     if nested_tabs is not None:
       print(f"{key} -> {tabs.get(key).get('URL')}")
-      for nt in nested_tabs:
+      for nt in nested_tabs:      #O(m), m being the length of nested tabs
         print("\t", list(tabs.keys())[nt], "->", tabs.get(list(tabs.keys())[nt]).get('URL'))
+    else:
+      # display the children if the parent is dead
+      # parent is dead when the child index is not found in the nested tabs indexes
+      parent_dead = True
+      for key2 in tabs:      #O(n), n being the length of the dict
+        child_index = list(tabs.keys()).index(key)
+        nested_tabs = tabs.get(key2).get('Nested Tabs')
+        if nested_tabs and child_index in nested_tabs:      #O(m), m being the length of nested tabs
+          parent_dead = False
+      if parent_dead:
+        print(f"{key} -> {tabs.get(key).get('URL')}")
 
 # function: openNestedTab
 # params:
@@ -227,7 +253,7 @@ def openNestedTab(tabs):
 
       if parent_tab_index in range(1, len(tabs) + 1):      # O(n)
         nested_tabs = tabs.get(list(tabs.keys())[parent_tab_index - 1]).get('Nested Tabs')
-        if nested_tabs:
+        if nested_tabs is not None:
           nested_tab_title = input("\nEnter the nested tab title: ")
           nested_tab_url = input("Enter the nested tab URL: ")
 
@@ -243,21 +269,21 @@ def openNestedTab(tabs):
         else:
           print("\n-> You can not add a nested tab to a child tab 🙂")
 
-        
+
       else:
         print(f"\n-> Invalid index ({parent_tab_index}) 🙂")
     except Exception as e:
       print("\n-> Something went wrong, please try again 🙂")
-      print("Exception:", e, "\n")    
+      print("Exception:", e, "\n")
+
 
 # function: sortTabs
 # params:
 #   tabs: dictionary of tabs to be sorted
 # return:
-#   new_dict: the new sorted dictionary
+#   new_dict: the new sorted dictionary 
 # description: sorting tabs using merge-sort based on their titles
-# time complexity: O(n log n + n + n*m + n), n being the number of tabs, m being the number of nested tabs
-# O(nlogn) dominates the other terms -> O(nlogn)
+# time complexity: O(n log n + n + n*m + n), n being the number of tabs, m being the number of nested tabs, O(nlogn) dominates the other terms -> O(nlogn)
 def sortTabs(tabs):
   print("\n***** Sorting all tabs based on their titles *****\n")
 
@@ -289,12 +315,14 @@ def sortTabs(tabs):
       temp = []
       for i in range(len(nested_tabs)):      # O(m)
         temp.append(list(new_dict.keys()).index(list(tabs.keys())[nested_tabs[i]]))
+
       new_dict[key]['Nested Tabs'] = temp
-      
+
   displayTabsIndexed(new_dict)      # O(n)
   print("\n-> Tabs sorted successfully 👍 \n")
   return new_dict
-  
+
+
 # function: mergeSort
 # params:
 #   list1: list of titles to be sorted
@@ -309,6 +337,7 @@ def mergeSort(list1,start,end):
   mergeSort(list1, start, mid)
   mergeSort(list1, mid + 1, end)
   merge(list1, start, mid, end)
+
 
 # function: merge
 # params:
@@ -341,6 +370,7 @@ def merge(list1, start, mid, end):
 
   list1[start:end+1] = new_list
 
+
 # function: saveTabs
 # params:
 #   tabs: dictionary of tabs to be saved
@@ -357,26 +387,27 @@ def saveTabs(tabs):
   print("\nEnter the file path where you want to save the current state of tabs: \n")
   file_path = input("-> ")
   print("\nIt may takes time. Please wait . . .\n")
-  
+
   try:
     saveTabsCurrentState(file_path, tabs)          #O(n), n being the length of tabs
-    print("-> Tabs saved successfully 👍\n")
   except Exception as e:
     print("\n-> Something went wrong, please try again 🙂")
     print("Exception:", e, "\n")
+
 
 # function: saveTabsCurrentState
 # params:
 #   file_path: location of the file where the tabs should be saved
 #   tabs: dictionary of tabs to be saved
 # description: save all tabs to an external file
-# time complexity: O(n)
+# time complexity: O(n), n being the length of tabs
 def saveTabsCurrentState(file_path, tabs):
   Json_value = {}
   for key in tabs:          #O(n), n being the length of tabs
     URL = tabs.get(key).get('URL')
     page = requests.get(URL)
     soup = BeautifulSoup(page.content, "html.parser")
+
     child = tabs.get(key).get('Nested Tabs') is None
     if not child:
       Json_value[key] = {
@@ -391,25 +422,29 @@ def saveTabsCurrentState(file_path, tabs):
         "URL": URL,
         "Content": str(soup)
       }
+
   save_file = open(file_path + ".json", "w")  
   json.dump(Json_value, save_file, indent = 4)          #O(n), n being the size of json
   save_file.close()
+  print("-> Tabs saved successfully 👍\n")
+
 
 # function: importTabs
 # description: importing data from the user file
-# time complexity: O(n)
+# time complexity: O(n), n being the size of JSON data
 def importTabs():
   print("\n***** Importing tabs from an external file *****")
-  
+
   print("\nEnter the file path in order to load tabs from: \n")
   file_path = input("-> ")
+
   try:
     tabs = loadTabs(file_path)          #O(n), n being the size of JSON data
-    print("\n-> Tabs loaded successfully 👍\n")
     return tabs
   except Exception as e:
     print("\n-> Something went wrong, please try again 🙂")
     print("Exception:", e, "\n")
+
 
 # function: loadTabs
 # params:
@@ -420,7 +455,7 @@ def loadTabs(file_path):
   try:
     load_file = open(file_path + ".json", "r")
     tabs = json.load(load_file)
-    
+
     new_dict = {}
     for key in tabs:
       child = tabs.get(key).get('Nested Tabs') is None
@@ -436,6 +471,7 @@ def loadTabs(file_path):
           'URL': tabs.get(key).get('URL')
         }
     load_file.close()
+    print("\n-> Tabs loaded successfully 👍\n")
     
     return new_dict
   except Exception as e:
@@ -447,6 +483,7 @@ def loadTabs(file_path):
 # time complexity: O(1)
 def exit():
   print("\n-> bye 👋 bye 👋")
+
 
 # only for testing purpose
 def initializeTabsDictionary():
@@ -535,13 +572,15 @@ def initializeTabsDictionary():
           'URL': 'https://www.facebook.com/search?q=php'
       },
   }
-  
+
   return tabs
 
+
 def menu():
-  tabs = initializeTabsDictionary()
+  # tabs = initializeTabsDictionary()
+  tabs = {}
   greetingUser()
-  
+
   while True:
     displayMenu()
 
@@ -560,9 +599,9 @@ def menu():
       elif choice == 6:
         tabs = sortTabs(tabs)
       elif choice == 7:
-        saveTabs()
+        saveTabs(tabs)
       elif choice == 8:
-        importTabs()
+        tabs = importTabs()
       elif choice == 9:
         exit()
         break
@@ -571,5 +610,6 @@ def menu():
     except Exception as e:
       print("\n-> Something went wrong, please try again 🙂")
       print("Exception:", e, "\n")
+
 
 menu()
