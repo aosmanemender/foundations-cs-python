@@ -411,6 +411,37 @@ def importTabs():
     print("\n-> Something went wrong, please try again 🙂")
     print("Exception:", e, "\n")
 
+# function: loadTabs
+# params:
+#   file_path: location of the file where the data should be loaded from
+# description: loading all tabs saved in the file into the system
+# time complexity: O(n), n being the size of JSON data
+def loadTabs(file_path):
+  try:
+    load_file = open(file_path + ".json", "r")
+    tabs = json.load(load_file)
+    
+    new_dict = {}
+    for key in tabs:
+      child = tabs.get(key).get('Nested Tabs') is None
+      if not child:
+        new_dict[key] = {
+          'Tab Index' : tabs.get(key).get('Tab Index'),
+          'URL': tabs.get(key).get('URL'),
+          'Nested Tabs': tabs.get(key).get('Nested Tabs')
+        }
+      else:
+        new_dict[key] = {
+          'Tab Index' : tabs.get(key).get('Tab Index'),
+          'URL': tabs.get(key).get('URL')
+        }
+    load_file.close()
+    
+    return new_dict
+  except Exception as e:
+    print("\n-> Something went wrong, please try again ")
+    print("Exception:", e, "\n")
+
 def exit():
   print("\n-> bye 👋 bye 👋")
 
