@@ -209,6 +209,7 @@ def displayTabs(tabs):
 # params:
 #   tabs: dictionary of tabs to be updated
 # description: adding a new nested tab to tabs dictionary
+# time complexity: O(m (n + n * 1)), n being the length of the list, m being the number of times the user enters invalid index  -> O(m * n)
 def openNestedTab(tabs):
   print("\n***** Opening nested tab *****")
 
@@ -216,20 +217,20 @@ def openNestedTab(tabs):
     print("\n-> There are no tabs to create nested tabs from 🙂")
     return
 
-  while True:
+  while True:      # O(m)
     try:
       print("\nEnter the index of the parent tab where you want to insert additional tabs: \n")
-      displayParentTabsIndexed(tabs)
+      displayParentTabsIndexed(tabs)      # O(n)
 
       parent_tab_index = int(input("-> "))
 
-      if parent_tab_index in range(1, len(tabs) + 1):
+      if parent_tab_index in range(1, len(tabs) + 1):      # O(n)
         nested_tabs = tabs.get(list(tabs.keys())[parent_tab_index - 1]).get('Nested Tabs')
         if nested_tabs:
           nested_tab_title = input("\nEnter the nested tab title: ")
           nested_tab_url = input("Enter the nested tab URL: ")
 
-          if validateAddedTab(nested_tab_title, nested_tab_url):
+          if validateAddedTab(nested_tab_title, nested_tab_url):      # O(1)
             # adding new nested tab to tabs dict and its index to parent tab
             tabs[nested_tab_title] = {
               'Tab Index' : len(tabs),
@@ -248,6 +249,14 @@ def openNestedTab(tabs):
       print("\n-> Something went wrong, please try again 🙂")
       print("Exception:", e, "\n")    
 
+# function: sortTabs
+# params:
+#   tabs: dictionary of tabs to be sorted
+# return:
+#   new_dict: the new sorted dictionary
+# description: sorting tabs using merge-sort based on their titles
+# time complexity: O(n log n + n + n*m + n), n being the number of tabs, m being the number of nested tabs
+# O(nlogn) dominates the other terms -> O(nlogn)
 def sortTabs(tabs):
   print("\n***** Sorting all tabs based on their titles *****\n")
 
@@ -259,7 +268,7 @@ def sortTabs(tabs):
   mergeSort(titles_list, 0, len(titles_list) - 1)
 
   new_dict = {}
-  for i in range(len(titles_list)):
+  for i in range(len(titles_list)):      # O(n log n)
     if tabs.get(titles_list[i]).get('Nested Tabs') is not None:
       new_dict[titles_list[i]] = {
         'Tab Index' : tabs.get(titles_list[i]).get('Tab Index'),
@@ -273,18 +282,25 @@ def sortTabs(tabs):
       }
 
   # update parent nested tabs indexes according with the new dictionary
-  for key in new_dict:
+  for key in new_dict:      # O(n)
     nested_tabs = new_dict.get(key).get('Nested Tabs')
     if nested_tabs:
       temp = []
-      for i in range(len(nested_tabs)):
+      for i in range(len(nested_tabs)):      # O(m)
         temp.append(list(new_dict.keys()).index(list(tabs.keys())[nested_tabs[i]]))
       new_dict[key]['Nested Tabs'] = temp
       
-  displayTabsIndexed(new_dict)
+  displayTabsIndexed(new_dict)      # O(n)
   print("\n-> Tabs sorted successfully 👍 \n")
   return new_dict
   
+# function: mergeSort
+# params:
+#   list1: list of titles to be sorted
+#   start: the start index of the list
+#   end: the end index of the list
+# description: it divides the list, and then calls the merge function
+# time complexity: O(n log n), n being the length of the list
 def mergeSort(list1,start,end):
   if start == end:
     return
@@ -293,6 +309,14 @@ def mergeSort(list1,start,end):
   mergeSort(list1, mid + 1, end)
   merge(list1, start, mid, end)
 
+# function: merge
+# params:
+#   list1: list of titles to be sorted
+#   start: the start index of the list
+#   mid: the middle index of the list
+#   end: the end index of the list
+# description: it merges the two sublists into a sorted one
+# time complexity: O(n), n being the length of the list
 def merge(list1, start, mid, end):
   new_list = []
   ind1 = start
