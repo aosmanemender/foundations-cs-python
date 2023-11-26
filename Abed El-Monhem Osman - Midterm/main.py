@@ -133,6 +133,17 @@ def closeTab(tabs):
       print("\n-> Something went wrong, please try again 🙂")
       print("Exception:", e, "\n")
 
+# function: findLastOpenedTab
+# params:
+#   tabs: dictionary of tabs to search into
+# description: find the greater index saved in the dictionary
+def findLastOpenedTab(tabs):
+  last_opened_tab = 0
+  for key in tabs:
+    if tabs.get(key).get("Tab Index") > last_opened_tab:
+      last_opened_tab = tabs.get(key).get("Tab Index")
+  return last_opened_tab + 1
+
 # function: swicthTab
 # params:
 #   tabs: dictionary of tabs to be searched into
