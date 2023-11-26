@@ -3,11 +3,13 @@ from bs4 import BeautifulSoup
 
 # function: greetingUser
 # description: displaying user greeting
+# time complexity: O(1)
 def greetingUser():
   print("\n***** Hello, And Welcome *****\n")
 
 # function: displayMenu
 # description: displaying the main menu with a variety of options
+# time complexity: O(1)
 def displayMenu():
   print("\n***** Main Menu *****\n")
   print("Please select an option")
@@ -25,10 +27,11 @@ def displayMenu():
 # params:
 #   tabs: dictionary of tabs to be updated
 # description: adding a new tab to the tabs dict
+# time complexity: O(m * n)
 def openTab(tabs):
   print("\n***** Opening a new tab *****")
 
-  while True:
+  while True:      #O(m), m being the number of times the user inputs invalid title/url
     tab_title = input("\nEnter the tab title: ")
     tab_url = input("Enter the tab URL: ")
 
@@ -39,7 +42,7 @@ def openTab(tabs):
         'Nested Tabs': []
       }
       print("\n-> Tab added successfully 👍\n")
-      displayTabsIndexed(tabs)
+      displayTabsIndexed(tabs)      #O(n), n being the length of the dict
       break
 
 # function: validateAddedTab
