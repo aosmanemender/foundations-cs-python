@@ -262,7 +262,7 @@ def sortTabs(tabs):
   print("\n***** Sorting all tabs based on their titles *****\n")
 
   if not tabs:
-    print("\n-> There are no tabs to sort 🙂")
+    print("-> There are no tabs to sort 🙂")
     return
 
   titles_list = list(tabs.keys())
@@ -356,24 +356,38 @@ def saveTabs(tabs):
 
   print("\nEnter the file path where you want to save the current state of tabs: \n")
   file_path = input("-> ")
-  print("\n-> It may takes time. Please wait . . .")
+  print("\nIt may takes time. Please wait . . .\n")
   
   try:
-    Json_value = {}
-    for key in tabs:          #O(n), n being the length of tabs
-      URL = tabs.get(key).get('URL')
-      page = requests.get(URL)
-      soup = BeautifulSoup(page.content, "html.parser")
-      
-      Json_value[key] = {"content": str(soup), "nested tabs": tabs.get(key).get('Nested Tabs')}
-      
-    save_file = open(file_path + ".json", "w")  
-    json.dump(Json_value, save_file, indent = 4)  
-    save_file.close()  
+    saveTabsCurrentState(file_path, tabs)          #O(n), n being the length of tabs
     print("-> Tabs saved successfully 👍\n")
   except Exception as e:
     print("\n-> Something went wrong, please try again 🙂")
     print("Exception:", e, "\n")
+
+def saveTabsCurrentState(file_path, tabs):
+  Json_value = {}
+  for key in tabs:          #O(n), n being the length of tabs
+    URL = tabs.get(key).get('URL')
+    page = requests.get(URL)
+    soup = BeautifulSoup(page.content, "html.parser")
+    child = tabs.get(key).get('Nested Tabs') is None
+    if not child:
+      Json_value[key] = {
+        "Tab Index": tabs.get(key).get('Tab Index'),
+        "URL": URL,
+        "Content": str(soup),
+        "Nested Tabs": tabs.get(key).get('Nested Tabs')
+      }
+    else:
+      Json_value[key] = {
+        "Tab Index": tabs.get(key).get('Tab Index'),
+        "URL": URL,
+        "Content": str(soup)
+      }
+  save_file = open(file_path + ".json", "w")  
+  json.dump(Json_value, save_file, indent = 4)          #O(n), n being the size of json
+  save_file.close()
 
 def importTabs():
   print("bye 👋 bye 👋")
