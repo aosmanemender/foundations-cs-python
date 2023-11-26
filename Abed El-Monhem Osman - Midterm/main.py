@@ -442,6 +442,9 @@ def loadTabs(file_path):
     print("\n-> Something went wrong, please try again ")
     print("Exception:", e, "\n")
 
+# function: exit
+# description: exit the program
+# time complexity: O(1)
 def exit():
   print("\n-> bye 👋 bye 👋")
 
