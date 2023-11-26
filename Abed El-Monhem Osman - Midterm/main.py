@@ -33,8 +33,11 @@ def openTab(tabs):
     tab_url = input("Enter the tab URL: ")
 
     if validateAddedTab(tab_title, tab_url):
-      tab_url_dict = {'URL': tab_url, 'Nested Tabs': {}}
-      tabs[tab_title] = tab_url_dict
+      tabs[tab_title] = {
+        'Tab Index' : len(tabs),
+        'URL': tab_url,
+        'Nested Tabs': []
+      }
       print("\n-> Tab added successfully 👍\n")
       displayTabsIndexed(tabs)
       break
@@ -92,22 +95,33 @@ def closeTab(tabs):
       displayTabsIndexed(tabs)
 
       tab_index = input("-> ")
-      tab_index = len(tabs) if not tab_index and tab_index != 0 else int(
-          tab_index)
+      if not tab_index and tab_index != 0:
+        tab_index = findLastOpenedTab(tabs)
+      else:
+        tab_index = int(tab_index)
 
       if tab_index in range(1, len(tabs) + 1):
         key = list(tabs.keys())[tab_index - 1]
-        
-        # remove child index from the parent
         child = tabs.get(key).get('Nested Tabs') is None
-        if child:
-          for tab in tabs:
-            nested_tabs = tabs.get(tab).get('Nested Tabs')
-            if nested_tabs:
-              if tab_index-1 in nested_tabs:
+                
+        # decrement tab indexes by 1
+        for tab in tabs:
+          if tabs[tab]['Tab Index'] > tab_index - 1:
+            tabs[tab]['Tab Index'] -= 1
+          nested_tabs = tabs.get(tab).get('Nested Tabs')
+          if nested_tabs:
+            index = 0
+            removed = False
+            while index < len(nested_tabs):
+              # remove child index from the parent
+              if not removed and child and nested_tabs[index] == tab_index - 1:
                 nested_tabs.remove(tab_index - 1)
-              for index in range(len(nested_tabs)):
+                removed = True
+                index -= 1
+              # decrement nested tab indexes by 1
+              if nested_tabs[index] > tab_index - 1:
                 nested_tabs[index] -= 1
+              index += 1
         
         # remove child tab
         tabs.pop(key)
