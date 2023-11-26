@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import json
 
 # function: greetingUser
 # description: displaying user greeting
@@ -265,10 +266,10 @@ def sortTabs(tabs):
     return
 
   titles_list = list(tabs.keys())
-  mergeSort(titles_list, 0, len(titles_list) - 1)
+  mergeSort(titles_list, 0, len(titles_list) - 1)      # O(n log n)
 
   new_dict = {}
-  for i in range(len(titles_list)):      # O(n log n)
+  for i in range(len(titles_list)):      # O(n)
     if tabs.get(titles_list[i]).get('Nested Tabs') is not None:
       new_dict[titles_list[i]] = {
         'Tab Index' : tabs.get(titles_list[i]).get('Tab Index'),
@@ -340,12 +341,38 @@ def merge(list1, start, mid, end):
 
   list1[start:end+1] = new_list
 
-def saveTabs():
-  print("bye 👋 bye 👋")
+def saveTabs(tabs):
+  print("\n***** Saving tabs to an external file *****")
+
+  if not tabs:
+    print("\n-> There are no tabs to save 🙂")
+    return
+
+  print("\nEnter the file path where you want to save the current state of tabs: \n")
+  file_path = input("-> ")
+  print("\n-> It may takes time. Please wait . . .")
+  
+  try:
+    Json_value = {}
+    for key in tabs:
+      URL = tabs.get(key).get('URL')
+      page = requests.get(URL)
+      soup = BeautifulSoup(page.content, "html.parser")
+      
+      Json_value[key] = {"content": str(soup), "nested tabs": tabs.get(key).get('Nested Tabs')}
+      
+    save_file = open(file_path + ".json", "w")  
+    json.dump(Json_value, save_file, indent = 4)  
+    save_file.close()  
+    print("-> Tabs saved successfully 👍\n")
+  except Exception as e:
+    print("\n-> Something went wrong, please try again 🙂")
+    print("Exception:", e, "\n")
+
 def importTabs():
   print("bye 👋 bye 👋")
 def exit():
-  print("bye 👋 bye 👋")
+  print("\n-> bye 👋 bye 👋")
 
 # only for testing purpose
 def initializeTabsDictionary():
@@ -372,16 +399,6 @@ def initializeTabsDictionary():
           'Tab Index' : 2,
           'URL': 'https://www.facebook.com',
           'Nested Tabs': [15, 16, 17, 18, 19]
-      },
-      'Tab 4': {
-          'Tab Index' : 3,
-          'URL': 'https://www.twitter.com',
-          'Nested Tabs': [20, 21, 22, 23, 24]
-      },
-      'Tab 5': {
-          'Tab Index' : 4,
-          'URL': 'https://www.linkedin.com',
-          'Nested Tabs': [25, 26, 27, 28, 29]
       },
       'Nested tab 1.1': {
           'Tab Index' : 5,
@@ -442,46 +459,6 @@ def initializeTabsDictionary():
       'Nested tab 3.5': {
           'Tab Index' : 19,
           'URL': 'https://www.facebook.com/search?q=php'
-      },
-      'Nested tab 4.1': {
-          'Tab Index' : 20,
-          'URL': 'https://www.twitter.com/search?q=python'
-      },
-      'Nested tab 4.2': {
-          'Tab Index' : 21,
-          'URL': 'https://www.twitter.com/search?q=java'
-      },
-      'Nested tab 4.3': {
-          'Tab Index' : 22,
-          'URL': 'https://www.twitter.com/search?q=c++'
-      },
-      'Nested tab 4.4': {
-          'Tab Index' : 23,
-          'URL': 'https://www.twitter.com/search?q=javascript'
-      },
-      'Nested tab 4.5': {
-          'Tab Index' : 24,
-          'URL': 'https://www.twitter.com/search?q=php'
-      },
-      'Nested tab 5.1': {
-          'Tab Index' : 25,
-          'URL': 'https://www.linkedin.com/search?q=python'
-      },
-      'Nested tab 5.2': {
-          'Tab Index' : 26,
-          'URL': 'https://www.linkedin.com/search?q=java'
-      },
-      'Nested tab 5.3': {
-          'Tab Index' : 27,
-          'URL': 'https://www.linkedin.com/search?q=c++'
-      },
-      'Nested tab 5.4': {
-          'Tab Index' : 28,
-          'URL': 'https://www.linkedin.com/search?q=javascript'
-      },
-      'Nested tab 5.5': {
-          'Tab Index' : 29,
-          'URL': 'https://www.linkedin.com/search?q=php'
       },
   }
   
