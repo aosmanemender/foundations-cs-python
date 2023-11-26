@@ -395,8 +395,22 @@ def saveTabsCurrentState(file_path, tabs):
   json.dump(Json_value, save_file, indent = 4)          #O(n), n being the size of json
   save_file.close()
 
+# function: importTabs
+# description: importing data from the user file
+# time complexity: O(n)
 def importTabs():
-  print("bye 👋 bye 👋")
+  print("\n***** Importing tabs from an external file *****")
+  
+  print("\nEnter the file path in order to load tabs from: \n")
+  file_path = input("-> ")
+  try:
+    tabs = loadTabs(file_path)          #O(n), n being the size of JSON data
+    print("\n-> Tabs loaded successfully 👍\n")
+    return tabs
+  except Exception as e:
+    print("\n-> Something went wrong, please try again 🙂")
+    print("Exception:", e, "\n")
+
 def exit():
   print("\n-> bye 👋 bye 👋")
 
