@@ -462,76 +462,76 @@ def initializeTabsDictionary():
       'Tab 1': {
           'Tab Index' : 0,
           'URL': 'https://www.google.com',
-          'Nested Tabs': [5, 6, 7, 8, 9]
+          'Nested Tabs': [3, 4, 5, 6, 7]
       },
       'Tab 2': {
           'Tab Index' : 1,
           'URL': 'https://www.youtube.com',
-          'Nested Tabs': [10, 11, 12, 13, 14]
+          'Nested Tabs': [8, 9, 10, 11, 12]
       },
       'Tab 3': {
           'Tab Index' : 2,
           'URL': 'https://www.facebook.com',
-          'Nested Tabs': [15, 16, 17, 18, 19]
+          'Nested Tabs': [13, 14, 15, 16, 17]
       },
       'Nested tab 1.1': {
-          'Tab Index' : 5,
+          'Tab Index' : 3,
           'URL': 'https://www.google.com/search?q=python'
       },
       'Nested tab 1.2': {
-          'Tab Index' : 6,
+          'Tab Index' : 4,
           'URL': 'https://www.google.com/search?q=java'
       },
       'Nested tab 1.3': {
-          'Tab Index' : 7,
+          'Tab Index' : 5,
           'URL': 'https://www.google.com/search?q=c++'
       },
       'Nested tab 1.4': {
-          'Tab Index' : 8,
+          'Tab Index' : 6,
           'URL': 'https://www.google.com/search?q=javascript'
       },
       'Nested tab 1.5': {
-          'Tab Index' : 9,
+          'Tab Index' : 7,
           'URL': 'https://www.google.com/search?q=php'
       },
       'Nested tab 2.1': {
-          'Tab Index' : 10,
+          'Tab Index' : 8,
           'URL': 'https://www.youtube.com/results?search_query=python'
       },
       'Nested tab 2.2': {
-          'Tab Index' : 11,
+          'Tab Index' : 9,
           'URL': 'https://www.youtube.com/results?search_query=java'
       },
       'Nested tab 2.3': {
-          'Tab Index' : 12,
+          'Tab Index' : 10,
           'URL': 'https://www.youtube.com/results?search_query=c++'
       },
       'Nested tab 2.4': {
-          'Tab Index' : 13,
+          'Tab Index' : 11,
           'URL': 'https://www.youtube.com/results?search_query=javascript'
       },
       'Nested tab 2.5': {
-          'Tab Index' : 14,
+          'Tab Index' : 12,
           'URL': 'https://www.youtube.com/results?search_query=php'
       },
       'Nested tab 3.1': {
-          'Tab Index' : 15,
+          'Tab Index' : 13,
           'URL': 'https://www.facebook.com/search?q=python'
       },
       'Nested tab 3.2': {
-          'Tab Index' : 16,
+          'Tab Index' : 14,
           'URL': 'https://www.facebook.com/search?q=java'
       },
       'Nested tab 3.3': {
-          'Tab Index' : 17,
+          'Tab Index' : 15,
           'URL': 'https://www.facebook.com/search?q=c++'
       },
       'Nested tab 3.4': {
-          'Tab Index' : 18,
+          'Tab Index' : 16,
           'URL': 'https://www.facebook.com/search?q=javascript'
       },
       'Nested tab 3.5': {
-          'Tab Index' : 19,
+          'Tab Index' : 17,
           'URL': 'https://www.facebook.com/search?q=php'
       },
   }
