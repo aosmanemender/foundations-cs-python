@@ -242,9 +242,74 @@ def openNestedTab(tabs):
       print("\n-> Something went wrong, please try again 🙂")
       print("Exception:", e, "\n")    
 
+def sortTabs(tabs):
+  print("\n***** Sorting all tabs based on their titles *****\n")
 
-def sortTabs():
-  print("bye 👋 bye 👋")
+  if not tabs:
+    print("\n-> There are no tabs to sort 🙂")
+    return
+
+  titles_list = list(tabs.keys())
+  mergeSort(titles_list, 0, len(titles_list) - 1)
+
+  new_dict = {}
+  for i in range(len(titles_list)):
+    if tabs.get(titles_list[i]).get('Nested Tabs') is not None:
+      new_dict[titles_list[i]] = {
+        'Tab Index' : tabs.get(titles_list[i]).get('Tab Index'),
+        'URL': tabs.get(titles_list[i]).get('URL'),
+        'Nested Tabs': tabs.get(titles_list[i]).get('Nested Tabs')
+      }
+    else:
+      new_dict[titles_list[i]] = {
+        'Tab Index' : tabs.get(titles_list[i]).get('Tab Index'),
+        'URL': tabs.get(titles_list[i]).get('URL')
+      }
+
+  # update parent nested tabs indexes according with the new dictionary
+  for key in new_dict:
+    nested_tabs = new_dict.get(key).get('Nested Tabs')
+    if nested_tabs:
+      temp = []
+      for i in range(len(nested_tabs)):
+        temp.append(list(new_dict.keys()).index(list(tabs.keys())[nested_tabs[i]]))
+      new_dict[key]['Nested Tabs'] = temp
+      
+  displayTabsIndexed(new_dict)
+  print("\n-> Tabs sorted successfully 👍 \n")
+  return new_dict
+  
+def mergeSort(list1,start,end):
+  if start == end:
+    return
+  mid = (start + end) // 2
+  mergeSort(list1, start, mid)
+  mergeSort(list1, mid + 1, end)
+  merge(list1, start, mid, end)
+
+def merge(list1, start, mid, end):
+  new_list = []
+  ind1 = start
+  ind2 = mid + 1
+
+  while ind1 <= mid and ind2 <= end:
+    if list1[ind1] < list1[ind2]:
+      new_list.append(list1[ind1])
+      ind1 += 1
+    else:
+      new_list.append(list1[ind2])
+      ind2 += 1
+
+  while ind1 <= mid:
+    new_list.append(list1[ind1])
+    ind1 += 1
+
+  while ind2 <= end: 
+    new_list.append(list1[ind2])
+    ind2 += 1
+
+  list1[start:end+1] = new_list
+
 def saveTabs():
   print("bye 👋 bye 👋")
 def importTabs():
