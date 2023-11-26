@@ -365,6 +365,12 @@ def saveTabs(tabs):
     print("\n-> Something went wrong, please try again 🙂")
     print("Exception:", e, "\n")
 
+# function: saveTabsCurrentState
+# params:
+#   file_path: location of the file where the tabs should be saved
+#   tabs: dictionary of tabs to be saved
+# description: save all tabs to an external file
+# time complexity: O(n)
 def saveTabsCurrentState(file_path, tabs):
   Json_value = {}
   for key in tabs:          #O(n), n being the length of tabs
