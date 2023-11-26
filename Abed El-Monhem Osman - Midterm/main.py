@@ -341,6 +341,12 @@ def merge(list1, start, mid, end):
 
   list1[start:end+1] = new_list
 
+# function: saveTabs
+# params:
+#   tabs: dictionary of tabs to be saved
+# description: save all tabs to an external file
+# time complexity: O(n), n being the length of the dict
+# online reference: https://www.javatpoint.com/save-json-file-in-python
 def saveTabs(tabs):
   print("\n***** Saving tabs to an external file *****")
 
@@ -354,7 +360,7 @@ def saveTabs(tabs):
   
   try:
     Json_value = {}
-    for key in tabs:
+    for key in tabs:          #O(n), n being the length of tabs
       URL = tabs.get(key).get('URL')
       page = requests.get(URL)
       soup = BeautifulSoup(page.content, "html.parser")
