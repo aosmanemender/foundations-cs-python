@@ -51,6 +51,7 @@ def openTab(tabs):
 #   tab_url: url address entered by the user
 # return: True/False
 # description: validating user inputs (tab title, tab url) before adding it to the tabs dict
+# time complexity: O(1)
 def validateAddedTab(tab_title, tab_url):
   valid = False
 
@@ -67,16 +68,18 @@ def validateAddedTab(tab_title, tab_url):
 # params:
 #   tabs: dictionary of tabs to be printed
 # description: displaying all tabs with index number to be picked by the user
+# time complexity: O(n), n being the length of the dict
 def displayTabsIndexed(tabs):
-  for i, key in enumerate(tabs, 1):
+  for i, key in enumerate(tabs, 1):      #O(n)
     print(f"{i}. {key} -> {tabs.get(key).get('URL')}")
 
 # function: displayParentTabsIndexed
 # params:
 #   tabs: dictionary of tabs to be printed
 # description: displaying only parent tabs with index number to be picked by the user
+# time complexity: O(n), n being the length of the dict
 def displayParentTabsIndexed(tabs):
-  for i, key in enumerate(tabs, 1):
+  for i, key in enumerate(tabs, 1):      #O(n)
     nested_tabs = tabs.get(key).get('Nested Tabs')
     if nested_tabs:
       print(f"{i}. {key} -> {tabs.get(key).get('URL')}")
